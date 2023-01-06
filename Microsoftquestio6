@@ -1,0 +1,29 @@
+//Perfect Rectangle
+class Solution {
+public:
+    bool isRectangleCover(vector<vector<int>>& rectangles) {
+      /*  Just used map to keep the count of edges.
+         Increasing the count of bottom left and top right vertices.
+        Decreasing the count of bottom right and top left vertices.
+        At Last We sum all the values of map.
+        If the value is 4 then return true as four vertices are there, else returnfalse.*/
+
+        map<pair<int,int>,int>mp;
+        for(auto i:rectangles) {
+            mp[{i[0],i[1]}]++;
+            mp[{i[2],i[3]}]++;
+            mp[{i[0],i[3]}]--;
+            mp[{i[2],i[1]}]--;
+        }
+        int count=0;
+        for(auto i=mp.begin();i!=mp.end();i++) {
+            if(abs(i->second)==1) {
+                count++;
+            }
+            else if(abs(i->second)!=1 && i->second!=0){
+                return false;
+            }
+        }
+        return count==4;
+    }
+};

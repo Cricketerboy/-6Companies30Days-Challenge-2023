@@ -1,0 +1,38 @@
+// Number of Substrings Containing All Three Characters
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        queue<int>a,b,c;
+        for(int i=0;i<s.length();i++) {
+           if(s[i]=='a') {
+                a.push(i);
+            } 
+            if(s[i]=='b') {
+                b.push(i);
+            } 
+            if(s[i]=='c') {
+                c.push(i);
+            }
+        }
+        int count=0,i=0,ans=0;
+        while(!a.empty() && !b.empty() && !c.empty()) {
+            char ch=s[i];
+            int val=0;
+            if(ch=='a') {
+               val=max(b.front(),c.front());
+               a.pop();
+            }
+            if(ch=='b') {
+               val=max(a.front(),c.front());
+               b.pop();
+            }
+            if(ch=='c') {
+               val=max(b.front(),a.front());
+               c.pop();
+            }
+            ans=ans+(s.length()-val);
+            i++;
+        }
+        return ans;
+    }
+};
